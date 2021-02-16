@@ -1,0 +1,22 @@
+
+###
+GET {{baseUrl}}/v1/total 
+Accept: application/json
+X-Rapidapi-Key: {{application-key}}
+
+###
+GET {{baseUrl}}/v1/total?country=India
+Accept: application/json
+X-Rapidapi-Key: {{application-key}}
+
+###
+GET {{baseUrl}}/v1/stats?country=India
+Accept: application/json
+X-Rapidapi-Key: {{application-key}}
+
+###
+
+GET {{baseUrl}}/v1/stats
+Accept: application/json
+X-Rapidapi-Key: {{application-key}}
+
