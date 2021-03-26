@@ -1,30 +1,15 @@
-import 'package:flutter/foundation.dart';
-import 'package:testdailyapp/app/services/api_keys.dart';
-
-enum Endpoint {cases, deaths, recovered}
+enum Endpoint { global, india, countries, states }
 
 class API {
-  API({@required this.apiKey});
-  final String apiKey;
+  static final String host = "api.covid19api.com";
 
-  static final String host = "ncov2019-admin.firebaseapp.com";
+  Uri slugs(Endpoint endpoint) =>
+      Uri(host: host, scheme: 'https', path: _url[endpoint]);
 
-  factory API.sandbox() => API(apiKey: APIkeys.ncovSandboxkey);
-  
-  //acessToken Url
-  Uri tokenUri() => Uri(host: host, scheme: 'https', path: 'token');
-
-  //endpoint Url's
-  Uri endpointUri(Endpoint endpoint)=> Uri(
-    host: host,
-    scheme: 'https',
-    path: _path[endpoint],
-  );
-
-  
-  static Map<Endpoint, String> _path = {
-    Endpoint.cases: 'cases',
-    Endpoint.deaths: 'deaths',
-    Endpoint.recovered: 'recovered',
+  static Map<Endpoint, String> _url = {
+    Endpoint.global: '/summary',
+    Endpoint.india: '/total/country/India',
+    Endpoint.countries: '/summary',
+    Endpoint.states: '/live/country/India'
   };
 }
