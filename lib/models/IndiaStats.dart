@@ -1,43 +1,34 @@
 class IndiaStats {
-  final List<Users> users;
+  final List<User> users;
   IndiaStats({this.users});
 
   factory IndiaStats.fromJson(List<dynamic> parseJson) {
-    return IndiaStats(users: parseJson.map((e) => Users.fromJson(e)).toList());
+    return IndiaStats(users: parseJson.map((e) => User.fromJson(e)).toList());
   }
 }
 
-class Users {
+class User {
   String province;
   int confirmed;
   int recovered;
   int deaths;
   int active;
-  int newconfirmed;
-  int newrecovered;
-  int newdeaths;
 
-  Users(
-      {this.confirmed,
-      this.province,
-      this.deaths,
-      this.recovered,
-      this.active,
-      this.newconfirmed,
-      this.newdeaths,
-      this.newrecovered});
+  User({
+    this.confirmed,
+    this.province,
+    this.deaths,
+    this.recovered,
+    this.active,
+  });
 
-  factory Users.fromJson(Map<String, dynamic> map) {
-    return Users(
-        active: map["Active"],
-        confirmed: map['Confirmed'],
-        deaths: map['Deaths'],
-        province: map['Province'],
-        recovered: map['Recovered'],
-        newconfirmed: map['NewConfirmed'],
-        newdeaths: map['NewDeaths'],
-        newrecovered: map['NewRecovered'],
-
-        );
+  factory User.fromJson(Map<String, dynamic> map) {
+    return User(
+      active: map["Active"],
+      confirmed: map['Confirmed'],
+      deaths: map['Deaths'],
+      province: map['Province'],
+      recovered: map['Recovered'],
+    );
   }
 }

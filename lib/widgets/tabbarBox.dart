@@ -6,14 +6,10 @@ class TBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 150,
-      height:45,
-      margin: EdgeInsets.symmetric(horizontal: 6,),
-      
-      child:Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Center(child: Text('$text',)),
-      )
-    );
+        padding: EdgeInsets.only(top:10,bottom: 12,left:5,right: 5),
+        child: Center(
+            child: Text(
+          '$text',
+        )));
   }
 }

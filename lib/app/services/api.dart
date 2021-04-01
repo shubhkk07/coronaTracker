@@ -10,6 +10,6 @@ class API {
     Endpoint.global: '/summary',
     Endpoint.india: '/total/country/India',
     Endpoint.countries: '/summary',
-    Endpoint.states: '/live/country/India'
+    Endpoint.states: '/live/country/India',
   };
 }

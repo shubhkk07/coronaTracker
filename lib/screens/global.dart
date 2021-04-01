@@ -4,6 +4,7 @@ import 'package:testdailyapp/app/repositories/data_repository.dart';
 import 'package:testdailyapp/app/services/api.dart';
 import 'package:testdailyapp/main.dart';
 import 'package:testdailyapp/models/users.dart';
+import 'package:testdailyapp/screens/bottomSheet.dart';
 import 'package:testdailyapp/widgets/box.dart';
 
 class Global extends StatefulWidget {
@@ -38,11 +39,11 @@ class _GlobalState extends State<Global> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 10.0),
+      padding: const EdgeInsets.only(top: 10.0, left: 10, right: 10),
       child: _endpointData != null
-          ? Column(children: [
+          ? ListView(children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Box(
                       color.confirmed,
@@ -73,9 +74,21 @@ class _GlobalState extends State<Global> {
                         .toString(),
                     ''),
               ]),
+              // Container(
+              //   height: 350,
+              //   padding: EdgeInsets.only(top: 20),
+              //   child: Trend(),
+              // ),
+              Padding(
+                padding: const EdgeInsets.only(top:30.0),
+                child: Text(
+                  'Country-wise Table',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
               Container(
-                  padding: EdgeInsets.only(top: 20),
-                  height: MediaQuery.of(context).size.height * 0.58,
+                  padding: EdgeInsets.only(top: 20, bottom: 15),
+                  height: MediaQuery.of(context).size.height * 0.62,
                   width: MediaQuery.of(context).size.width,
                   child: FutureBuilder(
                       future: updateStatsData(),
@@ -85,6 +98,10 @@ class _GlobalState extends State<Global> {
                           return SingleChildScrollView(
                             scrollDirection: Axis.vertical,
                             child: DataTable(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.grey, width: 1),
+                                    borderRadius: BorderRadius.circular(10)),
                                 headingTextStyle:
                                     TextStyle(fontWeight: FontWeight.w400),
                                 columnSpacing: 25,
@@ -112,10 +129,29 @@ class _GlobalState extends State<Global> {
                                 ],
                                 rows: stat.users
                                     .map((data) => DataRow(cells: [
-                                          DataCell(Text(
-                                            data.country,
-                                            textScaleFactor: 1.0,
-                                          )),
+                                          DataCell(
+                                            Text(
+                                              data.country,
+                                              textScaleFactor: 1.0,
+                                            ),
+                                            onTap: () {
+                                              showModalBottomSheet(
+                                                
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(30)),
+                                                  backgroundColor:
+                                                      Color(0xffFFF9EC),
+                                                  isScrollControlled: true,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return Padding(
+                                                      padding: const EdgeInsets.only(left:8.0,right: 8),
+                                                      child: Sheet(data: data,),
+                                                    );
+                                                  });
+                                            },
+                                          ),
                                           DataCell(Text(
                                             data.confirmed.toString(),
                                             textScaleFactor: 1.0,
@@ -125,7 +161,7 @@ class _GlobalState extends State<Global> {
                                             textScaleFactor: 1.0,
                                           )),
                                           DataCell(Text(
-                                            data.recovered.toString(),
+                                            data.recovered != 0?data.recovered.toString():'-',
                                             textScaleFactor: 1.0,
                                           )),
                                         ]))

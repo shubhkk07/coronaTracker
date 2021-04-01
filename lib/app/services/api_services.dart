@@ -9,6 +9,7 @@ class APIService {
   final API api;
 
   int index;
+  final List<dynamic> finalList = [];
 
   DateTime date = DateTime.now().subtract(Duration(days: 1));
 
@@ -100,4 +101,25 @@ class APIService {
     }
     throw response;
   }
+
+  //working on grahical representation
+
+  // Future getGraphicalData() async {
+  //   final Response response = await http.get(api.slugs(Endpoint.india));
+  //   if (response.statusCode == 200) {
+  //     final List<dynamic> list = await json.decode(response.body);
+  //     list.reversed;
+      
+  //     // for (int i = 30; i >= 1; i--) {
+  //     //   finalList.add(list
+  //     //       .where((element) =>
+  //     //           element["Date"] ==
+  //     //           DateFormat('yyyy-MM-dd')
+  //     //                   .format((DateTime.now().subtract(Duration(days: i)))) +
+  //     //               'T00:00:00Z')
+  //     //       );
+  //     // }
+  //     return list.sublist(0,30);
+  //   }
+  // }
 }
