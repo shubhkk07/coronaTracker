@@ -12,9 +12,13 @@ class Global extends StatefulWidget {
   _GlobalState createState() => _GlobalState();
 }
 
-class _GlobalState extends State<Global> {
+class _GlobalState extends State<Global>
+    with AutomaticKeepAliveClientMixin<Global> {
   Endpoint endpoint;
   List<int> _endpointData;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -80,7 +84,7 @@ class _GlobalState extends State<Global> {
               //   child: Trend(),
               // ),
               Padding(
-                padding: const EdgeInsets.only(top:30.0),
+                padding: const EdgeInsets.only(top: 30.0),
                 child: Text(
                   'Country-wise Table',
                   style: TextStyle(fontSize: 20),
@@ -136,18 +140,23 @@ class _GlobalState extends State<Global> {
                                             ),
                                             onTap: () {
                                               showModalBottomSheet(
-                                                
                                                   shape: RoundedRectangleBorder(
                                                       borderRadius:
-                                                          BorderRadius.circular(30)),
+                                                          BorderRadius.circular(
+                                                              30)),
                                                   backgroundColor:
                                                       Color(0xffFFF9EC),
                                                   isScrollControlled: true,
                                                   context: context,
                                                   builder: (context) {
                                                     return Padding(
-                                                      padding: const EdgeInsets.only(left:8.0,right: 8),
-                                                      child: Sheet(data: data,),
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 8.0,
+                                                              right: 8),
+                                                      child: Sheet(
+                                                        data: data,
+                                                      ),
                                                     );
                                                   });
                                             },
@@ -161,7 +170,9 @@ class _GlobalState extends State<Global> {
                                             textScaleFactor: 1.0,
                                           )),
                                           DataCell(Text(
-                                            data.recovered != 0?data.recovered.toString():'-',
+                                            data.recovered != 0
+                                                ? data.recovered.toString()
+                                                : '-',
                                             textScaleFactor: 1.0,
                                           )),
                                         ]))

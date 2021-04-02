@@ -6,13 +6,19 @@ import 'package:testdailyapp/models/IndiaStats.dart';
 import 'package:testdailyapp/screens/bottomSheet.dart';
 import 'package:testdailyapp/widgets/box.dart';
 
+import 'Graphical Data/graph.dart';
+
 class India extends StatefulWidget {
   @override
   _IndiaState createState() => _IndiaState();
 }
 
-class _IndiaState extends State<India> {
+class _IndiaState extends State<India>
+    with AutomaticKeepAliveClientMixin<India> {
   Map<String, dynamic> stats;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -43,7 +49,7 @@ class _IndiaState extends State<India> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.only(top: 10,left: 10,right: 10),
+        padding: EdgeInsets.only(top: 10, left: 10, right: 10),
         child: stats != null
             ? ListView(
                 children: [
@@ -84,20 +90,34 @@ class _IndiaState extends State<India> {
                           ''),
                     ],
                   ),
-                  // Container(
-                  //   height: 350,
-                  //   padding: EdgeInsets.only(top: 20),
-                  //   child: Trend(),
-                  // ),
                   Padding(
                     padding: const EdgeInsets.only(top:30.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children:[
+                        Padding(padding: EdgeInsets.only(bottom: 10),
+                        child: Text('Trend',style: TextStyle(fontSize: 22),),
+                        ),
+                         Container(
+                        // decoration:BoxDecoration(
+                        //   border: Border.all(color: Colors.grey)
+                        // ),
+                        
+                        height: 350,
+                        padding: EdgeInsets.only(top:10,left: 10,right: 10,bottom: 10),
+                        child: Trend(myCountry: 'India',),
+                      ),]
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30.0),
                     child: Text(
-                      'Country-wise Table',
+                      'State-wise Table',
                       style: TextStyle(fontSize: 20),
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.only(top: 20,bottom: 15),
+                    padding: EdgeInsets.only(top: 20, bottom: 15),
                     height: MediaQuery.of(context).size.height * 0.62,
                     child: FutureBuilder(
                       future: getIndiaStates(),
@@ -149,11 +169,13 @@ class _IndiaState extends State<India> {
                                                           30)),
                                               backgroundColor:
                                                   Color(0xffFFF9EC),
-                                            
+                                                  isScrollControlled: true,
                                               context: context,
                                               builder: (context) {
                                                 return Padding(
-                                                  padding: const EdgeInsets.only(left: 8,right: 8),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 8, right: 8),
                                                   child: Sheet(
                                                     user: data,
                                                   ),

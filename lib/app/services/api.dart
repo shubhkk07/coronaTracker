@@ -1,4 +1,4 @@
-enum Endpoint { global, india, countries, states }
+enum Endpoint { global, graph, countries, states }
 
 class API {
   static final String host = "api.covid19api.com";
@@ -8,7 +8,7 @@ class API {
 
   static Map<Endpoint, String> _url = {
     Endpoint.global: '/summary',
-    Endpoint.india: '/total/country/India',
+    Endpoint.graph: '/total/country/',
     Endpoint.countries: '/summary',
     Endpoint.states: '/live/country/India',
   };

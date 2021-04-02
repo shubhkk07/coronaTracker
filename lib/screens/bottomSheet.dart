@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:testdailyapp/screens/Graphical%20Data/graph.dart';
 import 'package:testdailyapp/main.dart';
 import 'package:testdailyapp/models/IndiaStats.dart';
 import 'package:testdailyapp/models/users.dart';
@@ -19,14 +20,15 @@ class _SheetState extends State<Sheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height:MediaQuery.of(context).size.height*0.4,
+      height: MediaQuery.of(context).size.height * 0.75,
       child: Center(
         child: Container(
           child: Column(
             children: [
               Padding(
                 padding: EdgeInsets.only(top: 20, bottom: 20),
-                child: Text(data != null ? data.country : user.province,style: TextStyle(fontSize:20)),
+                child: Text(data != null ? data.country : user.province,
+                    style: TextStyle(fontSize: 20)),
               ),
               Row(
                 children: [
@@ -34,7 +36,8 @@ class _SheetState extends State<Sheet> {
                       color.confirmed,
                       Colors.amber,
                       'Confirmed',
-                      (data != null ? data.confirmed : user.confirmed).toString(),
+                      (data != null ? data.confirmed : user.confirmed)
+                          .toString(),
                       ((data != null ? ('+' + '${data.newConfirmed}') : '')
                           .toString())),
                   Box(
@@ -73,7 +76,12 @@ class _SheetState extends State<Sheet> {
                       '')
                 ],
               ),
-              
+              Container(
+                child: Trend(
+                  myCountry: data != null ? data.country : null,
+                  myProvince: user != null ? user.province : null,
+                ),
+              )
             ],
           ),
         ),

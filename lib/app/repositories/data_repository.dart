@@ -27,4 +27,12 @@ class DataRepository {
     return await apiService.getIndiaStates();
   }
 
+  Future getGraphData({String country})async{
+    return await apiService.getGraphicalData(countryName: country);
+  }
+
+  Future getGraphStates({String myState})async{
+    return await apiService.statesGraph(state: myState);
+  }
+
 }

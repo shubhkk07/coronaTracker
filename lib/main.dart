@@ -4,10 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:testdailyapp/Colors/colors.dart';
 import 'package:testdailyapp/app/repositories/data_repository.dart';
 import 'package:testdailyapp/app/services/api_services.dart';
-
 import 'package:testdailyapp/screens/splash.dart';
-
 import 'app/services/api.dart';
+
 
 const color = colors();
 
@@ -37,8 +36,9 @@ class MyApp extends StatelessWidget {
 }
 
 //TODO:font family should be replaced
-//TODO:splash screen
-//TODO:check out on tap fxn on dataTable
-//TODO:for graph we have to store data corresponding to each date so what we can do is we can give datetime.now and then subtraction of days can be in loop and we can enter the formal arguments in duration of datetime.now and then we can pass that data to the graph
-
-
+//TODO:pehle to graph class mein hi graph ko shi krro name vgera vhi aaye hme bs call krna hai
+//TODO:data bdaa chutiya lgg rha hai graph ka isse theek krro bc, one day ka data do nhi to 
+//dekho ki moth ya last 2 month
+//TODO:function v as a constructor pass honge fr jo call krege provider ke saath vo fxn waha call hogaa
+//TODO:cache data ka dekh agr kuch hotta to and make sure ki vo data mein commas aw ja aaye.
+//TODOLaunch Date = 5th April,2020

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
+import 'package:testdailyapp/models/graphicaldata.dart';
 import 'api.dart';
 import 'package:intl/intl.dart';
 
@@ -55,18 +56,18 @@ class APIService {
     throw response;
   }
 
-  Future getIndiaTotal() async {
-    final Response response =
-        await http.get(api.slugs(Endpoint.india).toString());
-    if (response.statusCode == 200) {
-      final List<dynamic> list = json.decode(response.body);
-      if (list.isNotEmpty) {
-        final Map<String, dynamic> data = list.last;
-        return data;
-      }
-    }
-    throw response;
-  }
+  // Future getIndiaTotal() async {
+  //   final Response response =
+  //       await http.get(api.slugs(Endpoint.india).toString());
+  //   if (response.statusCode == 200) {
+  //     final List<dynamic> list = json.decode(response.body);
+  //     if (list.isNotEmpty) {
+  //       final Map<String, dynamic> data = list.last;
+  //       return data;
+  //     }
+  //   }
+  //   throw response;
+  // }
 
   Future getIndia() async {
     final Response response =
@@ -104,22 +105,33 @@ class APIService {
 
   //working on grahical representation
 
-  // Future getGraphicalData() async {
-  //   final Response response = await http.get(api.slugs(Endpoint.india));
-  //   if (response.statusCode == 200) {
-  //     final List<dynamic> list = await json.decode(response.body);
-  //     list.reversed;
-      
-  //     // for (int i = 30; i >= 1; i--) {
-  //     //   finalList.add(list
-  //     //       .where((element) =>
-  //     //           element["Date"] ==
-  //     //           DateFormat('yyyy-MM-dd')
-  //     //                   .format((DateTime.now().subtract(Duration(days: i)))) +
-  //     //               'T00:00:00Z')
-  //     //       );
-  //     // }
-  //     return list.sublist(0,30);
-  //   }
-  // }
+  Future getGraphicalData({String countryName}) async {
+    final Response response =
+        await http.get(api.slugs(Endpoint.graph).toString() + countryName);
+
+    if (response.statusCode == 200) {
+      final List<Graph> list = (json.decode(response.body) as List)
+          .map((item) => Graph.fromJsom(item))
+          .toList();
+      print(list.length);
+      return list;
+    }
+    throw response;
+  }
+
+  Future statesGraph({String state}) async {
+    final Response response =
+        await http.get(api.slugs(Endpoint.states).toString());
+    if (response.statusCode == 200) {
+      final List<dynamic> list = json.decode(response.body);
+      if (list.isNotEmpty) {
+        final List<Graph> graphList = list
+            .where((element) => element["Province"] == state)
+            .map((e) => Graph.fromJsom(e))
+            .toList();
+            return graphList;
+      }
+    }
+    throw response;
+  }
 }
