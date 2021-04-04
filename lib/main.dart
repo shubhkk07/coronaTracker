@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:testdailyapp/Colors/colors.dart';
 import 'package:testdailyapp/app/repositories/data_repository.dart';
 import 'package:testdailyapp/app/services/api_services.dart';
+import 'package:testdailyapp/screens/Graphical%20Data/graphicalRepresentation.dart';
 import 'package:testdailyapp/screens/splash.dart';
+import 'package:testdailyapp/screens/Graphical%20Data/worldGraph.dart';
 import 'app/services/api.dart';
 
 
@@ -36,9 +38,5 @@ class MyApp extends StatelessWidget {
 }
 
 //TODO:font family should be replaced
-//TODO:pehle to graph class mein hi graph ko shi krro name vgera vhi aaye hme bs call krna hai
-//TODO:data bdaa chutiya lgg rha hai graph ka isse theek krro bc, one day ka data do nhi to 
-//dekho ki moth ya last 2 month
-//TODO:function v as a constructor pass honge fr jo call krege provider ke saath vo fxn waha call hogaa
-//TODO:cache data ka dekh agr kuch hotta to and make sure ki vo data mein commas aw ja aaye.
+//TODO:USa ka data null hai vaha null check lgaa
 //TODOLaunch Date = 5th April,2020

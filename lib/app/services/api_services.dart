@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:testdailyapp/models/graphicaldata.dart';
+import 'package:testdailyapp/models/world.dart';
 import 'api.dart';
 import 'package:intl/intl.dart';
 
@@ -14,8 +15,13 @@ class APIService {
 
   DateTime date = DateTime.now().subtract(Duration(days: 1));
 
-  String finaldate =
-      DateFormat('yyyy-MM-dd').format(DateTime.now()) + 'T00:00:00Z';
+  String getDate(int days) {
+    String finaldate = DateFormat('yyyy-MM-dd')
+            .format((DateTime.now().subtract(Duration(days: days)))) +
+        'T00:00:00Z';
+    print(finaldate);
+    return finaldate;
+  }
 
 //get the data globally
   Future<List<int>> getSummary() async {
@@ -40,7 +46,7 @@ class APIService {
     throw response;
   }
 
-//Both functions can be called from here states and countries data, statistics of all together
+//get all countries Data
   Future getCountries() async {
     final Response response =
         await http.get(api.slugs(Endpoint.countries).toString());
@@ -56,19 +62,7 @@ class APIService {
     throw response;
   }
 
-  // Future getIndiaTotal() async {
-  //   final Response response =
-  //       await http.get(api.slugs(Endpoint.india).toString());
-  //   if (response.statusCode == 200) {
-  //     final List<dynamic> list = json.decode(response.body);
-  //     if (list.isNotEmpty) {
-  //       final Map<String, dynamic> data = list.last;
-  //       return data;
-  //     }
-  //   }
-  //   throw response;
-  // }
-
+//data of India on 2nd Tab
   Future getIndia() async {
     final Response response =
         await http.get(api.slugs(Endpoint.global).toString());
@@ -103,12 +97,29 @@ class APIService {
     throw response;
   }
 
-  //working on grahical representation
+//accurate graphical state data
+  Future getStatesGraph({String state}) async {
+    final Response response = await http.get(
+        api.slugs(Endpoint.stateGraph).toString() + getDate(35) + 'T00:00:00Z');
+    if (response.statusCode == 200) {
+      if (response.statusCode == 200) {
+        final List<dynamic> list = json.decode(response.body);
+        if (list.isNotEmpty) {
+          final List<Graph> graphList = list
+              .where((element) => element["Province"] == state)
+              .map((e) => Graph.fromJsom(e))
+              .toList();
+          return graphList;
+        }
+      }
+      throw response;
+    }
+  }
 
-  Future getGraphicalData({String countryName}) async {
-    final Response response =
-        await http.get(api.slugs(Endpoint.graph).toString() + countryName);
-
+//graphical data representation of all countries
+  Future getDatainRange({String country}) async {
+    final Response response = await http.get(api.graphEndpoints(
+        Endpoint.countries, getDate(35), getDate(1), country));
     if (response.statusCode == 200) {
       final List<Graph> list = (json.decode(response.body) as List)
           .map((item) => Graph.fromJsom(item))
@@ -119,17 +130,17 @@ class APIService {
     throw response;
   }
 
-  Future statesGraph({String state}) async {
-    final Response response =
-        await http.get(api.slugs(Endpoint.states).toString());
+// 'https://api.covid19api.com/world?from=2021-03-03T00:00:00Z&to=2021-04-04T00:00:00Z'
+  Future getWorldGraph() async {
+    final Response response = await http
+        .get(api.graphEndpoints(Endpoint.global, getDate(35), getDate(1), ''));
     if (response.statusCode == 200) {
       final List<dynamic> list = json.decode(response.body);
       if (list.isNotEmpty) {
-        final List<Graph> graphList = list
-            .where((element) => element["Province"] == state)
-            .map((e) => Graph.fromJsom(e))
-            .toList();
-            return graphList;
+        list.sort((a, b) => (a['Date']).compareTo(b['Date']));
+        List<GlobalData> glist =
+            list.map((item) => GlobalData.fromJson(item)).toList();
+        return glist;
       }
     }
     throw response;

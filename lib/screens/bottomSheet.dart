@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:testdailyapp/screens/Graphical%20Data/graph.dart';
+import 'package:testdailyapp/screens/Graphical%20Data/graphicalRepresentation.dart';
 import 'package:testdailyapp/main.dart';
 import 'package:testdailyapp/models/IndiaStats.dart';
 import 'package:testdailyapp/models/users.dart';
@@ -20,15 +20,15 @@ class _SheetState extends State<Sheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.75,
+      height: MediaQuery.of(context).size.height * 0.82,
       child: Center(
         child: Container(
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(top: 20, bottom: 20),
+                padding: EdgeInsets.only(top: 10, bottom: 15),
                 child: Text(data != null ? data.country : user.province,
-                    style: TextStyle(fontSize: 20)),
+                    style: TextStyle(fontSize: 18)),
               ),
               Row(
                 children: [
@@ -77,7 +77,9 @@ class _SheetState extends State<Sheet> {
                 ],
               ),
               Container(
-                child: Trend(
+                padding: EdgeInsets.only(top:20),
+                child: GraphicalData(
+                  height: MediaQuery.of(context).size.height*0.35,
                   myCountry: data != null ? data.country : null,
                   myProvince: user != null ? user.province : null,
                 ),

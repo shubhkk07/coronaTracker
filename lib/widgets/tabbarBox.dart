@@ -6,10 +6,11 @@ class TBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.only(top:10,bottom: 12,left:5,right: 5),
+        padding: EdgeInsets.only(top: 10, bottom: 12, left: 5, right: 5),
         child: Center(
             child: Text(
           '$text',
+          style: TextStyle(fontSize: 16),
         )));
   }
 }

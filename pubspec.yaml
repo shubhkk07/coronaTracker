@@ -29,6 +29,8 @@ dependencies:
   intl: ^0.17.0
   permissions_plugin: ^1.1.4
   provider: ^4.3.2+2
+  syncfusion_flutter_charts: ^19.1.54+1
+  toast: ^0.1.5
 
 dev_dependencies:
   flutter_test:

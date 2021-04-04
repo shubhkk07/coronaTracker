@@ -6,6 +6,7 @@ class colors{
   final deaths = const Color(0xffffebeb);
   final recovered = const Color(0xffdcffc9);
   final active = const Color(0xffe6f1ff); 
+  final backGroundColor = const  Color(0xffFFF9EC);
 
   const colors();
 }
