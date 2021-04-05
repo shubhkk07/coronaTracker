@@ -40,92 +40,99 @@ class _GraphicalDataState extends State<GraphicalData> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: EdgeInsets.only(bottom: 10, left: 10),
-            child: Text(
-              'Graphical Representation',
-              style: TextStyle(fontSize: 18),
-            ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: EdgeInsets.only(bottom: 10, left: 10),
+          child: Text(
+            'Graphical Representation',
+            style: TextStyle(fontSize: 18),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 10),
-            child: Indicator(),
-          ),
-          FutureBuilder(
-              future: getGraph(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Container(
-                    height: widget.height,
-                    child: SfCartesianChart(
-                      primaryXAxis: CategoryAxis(interval: 10),
-                      primaryYAxis: NumericAxis(
-                          title: AxisTitle(text: 'cases'),
-                          anchorRangeToVisiblePoints: false,
-                          isVisible: false),
-                      tooltipBehavior: TooltipBehavior(
-                        enable: true,
-                        animationDuration: 3,
-                        color: color.recovered,
-                        textStyle: TextStyle(color: Colors.black),
-                        elevation: 10,
-                        shadowColor: Colors.grey,
-                      ),
-                      series: [
-                        LineSeries(
-                          color: Colors.amber,
-                          name: 'Confirmed',
-                          xAxisName: 'Cases',
-                          yAxisName: 'Date',
-                          dataSource: snapshot.data,
-                          xValueMapper: (Graph graph, _) =>
-                              DateFormat('MMMd').format(graph.date),
-                          yValueMapper: (Graph graph, _) => graph.confirmed,
-                        ),
-                        LineSeries(
-                          color: Colors.green,
-                          name: 'Recovered',
-                          xAxisName: 'Cases',
-                          yAxisName: 'Date',
-                          dataSource: snapshot.data,
-                          xValueMapper: (Graph graph, _) =>
-                              DateFormat('MMMd').format(graph.date),
-                          yValueMapper: (Graph graph, _) => graph.recovered,
-                        ),
-                        LineSeries(
-                          color: Colors.red,
-                          name: 'Deaths',
-                          xAxisName: 'Cases',
-                          yAxisName: 'Date',
-                          dataSource: snapshot.data,
-                          xValueMapper: (Graph graph, _) =>
-                              DateFormat('MMMd').format(graph.date),
-                          yValueMapper: (Graph graph, _) => graph.deaths,
-                        ),
-                        LineSeries(
-                          color: Colors.blue,
-                          animationDuration: 3,
-                          name: 'Active',
-                          xAxisName: 'Cases',
-                          yAxisName: 'Date',
-                          dataSource: snapshot.data,
-                          xValueMapper: (Graph graph, _) =>
-                              DateFormat('MMMd').format(graph.date),
-                          yValueMapper: (Graph graph, _) => graph.active,
-                        )
-                      ],
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 10),
+          child: Indicator(),
+        ),
+        FutureBuilder(
+            future: getGraph(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Container(
+                  height: widget.height,
+                  child: SfCartesianChart(
+                    primaryXAxis: CategoryAxis(interval: 10),
+                    primaryYAxis: NumericAxis(
+                        title: AxisTitle(text: 'cases'),
+                        anchorRangeToVisiblePoints: false,
+                        isVisible: false),
+                    tooltipBehavior: TooltipBehavior(
+                      enable: true,
+                      animationDuration: 3,
+                      color: color.recovered,
+                      textStyle: TextStyle(color: Colors.black),
+                      elevation: 10,
+                      shadowColor: Colors.grey,
                     ),
-                  );
-                } else {
-                  return Container();
-                }
-              })
-        ],
-      ),
+                    series: [
+                      LineSeries(
+                        color: Colors.amber,
+                        name: 'Confirmed',
+                        xAxisName: 'Cases',
+                        yAxisName: 'Date',
+                        dataSource: snapshot.data,
+                        xValueMapper: (Graph graph, _) =>
+                            DateFormat('MMMd').format(graph.date),
+                        yValueMapper: (Graph graph, _) => graph.confirmed,
+                      ),
+                      LineSeries(
+                        color: Colors.green,
+                        name: 'Recovered',
+                        xAxisName: 'Cases',
+                        yAxisName: 'Date',
+                        dataSource: snapshot.data,
+                        xValueMapper: (Graph graph, _) =>
+                            DateFormat('MMMd').format(graph.date),
+                        yValueMapper: (Graph graph, _) => graph.recovered,
+                      ),
+                      LineSeries(
+                        color: Colors.red,
+                        name: 'Deaths',
+                        xAxisName: 'Cases',
+                        yAxisName: 'Date',
+                        dataSource: snapshot.data,
+                        xValueMapper: (Graph graph, _) =>
+                            DateFormat('MMMd').format(graph.date),
+                        yValueMapper: (Graph graph, _) => graph.deaths,
+                      ),
+                      LineSeries(
+                        color: Colors.blue,
+                        animationDuration: 3,
+                        name: 'Active',
+                        xAxisName: 'Cases',
+                        yAxisName: 'Date',
+                        dataSource: snapshot.data,
+                        xValueMapper: (Graph graph, _) =>
+                            DateFormat('MMMd').format(graph.date),
+                        yValueMapper: (Graph graph, _) => graph.active,
+                      )
+                    ],
+                  ),
+                );
+              } else if(snapshot.connectionState == ConnectionState.waiting) {
+                return Container();
+              }
+              else{
+                return Container(
+                  padding: EdgeInsets.only(top: 25),
+                  child: Center(
+                    child: Text('sorry there is no graphical data available'),
+                  ),
+                );
+              }
+            })
+      ],
     );
   }
 }

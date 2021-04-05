@@ -47,6 +47,22 @@ class _GlobalState extends State<Global>
     }
   }
 
+  showBottomSheet(country) {
+    return showModalBottomSheet(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        backgroundColor: Color(0xffFFF9EC),
+        isScrollControlled: true,
+        context: context,
+        builder: (context) {
+          return Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8),
+            child: Sheet(
+              data: country,
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -116,83 +132,66 @@ class _GlobalState extends State<Global>
                             return SingleChildScrollView(
                               scrollDirection: Axis.vertical,
                               child: DataTable(
+                                  headingRowColor: MaterialStateProperty.all(
+                                      color.recovered),
+                                  headingRowHeight: 65,
                                   decoration: BoxDecoration(
                                       border: Border.all(
                                           color: Colors.grey, width: 1),
-                                      borderRadius: BorderRadius.circular(10)),
-                                  headingTextStyle:
-                                      TextStyle(fontWeight: FontWeight.w400),
-                                  columnSpacing: 25,
+                                      borderRadius: BorderRadius.circular(4)),
+                                  headingTextStyle: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.black),
+                                  columnSpacing:
+                                      MediaQuery.of(context).size.width * 0.08,
                                   dataRowHeight: 55,
                                   columns: [
                                     DataColumn(
-                                        label: Text('Country',
-                                            textScaleFactor: 1.0,
-                                            style: TextStyle(
-                                                color: Colors.black45))),
+                                        label: Text(
+                                      'Country',
+                                      textScaleFactor: 1.0,
+                                    )),
                                     DataColumn(
-                                        label: Text('Confirmed',
-                                            textScaleFactor: 1.0,
-                                            style: TextStyle(
-                                                color: Colors.amber))),
+                                        label: Text(
+                                      'Confirmed',
+                                      textScaleFactor: 1.0,
+                                    )),
                                     DataColumn(
-                                        label: Text('Deaths',
-                                            textScaleFactor: 1.0,
-                                            style:
-                                                TextStyle(color: Colors.red))),
+                                        label: Text(
+                                      'Deaths',
+                                      textScaleFactor: 1.0,
+                                    )),
                                     DataColumn(
-                                        label: Text('Recovered',
-                                            textScaleFactor: 1.0,
-                                            style: TextStyle(
-                                                color: Colors.green))),
+                                        label: Text(
+                                      'Recovered',
+                                      textScaleFactor: 1.0,
+                                    )),
                                   ],
                                   rows: stat.users
-                                      .map((data) => DataRow(cells: [
+                                      .map((data) => DataRow(
+                                       
+                                        cells: [
                                             DataCell(
                                               Text(
                                                 data.country,
                                                 textScaleFactor: 1.0,
                                               ),
-                                              onTap: () {
-                                                showModalBottomSheet(
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        30)),
-                                                    backgroundColor:
-                                                        Color(0xffFFF9EC),
-                                                    isScrollControlled: true,
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                left: 8.0,
-                                                                right: 8),
-                                                        child: Sheet(
-                                                          data: data,
-                                                        ),
-                                                      );
-                                                    });
-                                              },
+                                              onTap: ()=> showBottomSheet(data)
                                             ),
                                             DataCell(Text(
                                               data.confirmed.toString(),
                                               textScaleFactor: 1.0,
-                                            )),
+                                            ),onTap: ()=> showBottomSheet(data)),
                                             DataCell(Text(
                                               data.deaths.toString(),
                                               textScaleFactor: 1.0,
-                                            )),
+                                            ),onTap: ()=> showBottomSheet(data)),
                                             DataCell(Text(
                                               data.recovered != 0
                                                   ? data.recovered.toString()
                                                   : '-',
                                               textScaleFactor: 1.0,
-                                            )),
+                                            ),onTap: ()=> showBottomSheet(data)),
                                           ]))
                                       .toList()),
                             );

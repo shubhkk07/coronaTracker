@@ -80,7 +80,7 @@ class _SheetState extends State<Sheet> {
                 padding: EdgeInsets.only(top:20),
                 child: GraphicalData(
                   height: MediaQuery.of(context).size.height*0.35,
-                  myCountry: data != null ? data.country : null,
+                  myCountry: data != null ? (data.country) : null,
                   myProvince: user != null ? user.province : null,
                 ),
               )

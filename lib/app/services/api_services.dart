@@ -85,10 +85,7 @@ class APIService {
       if (list.isNotEmpty) {
         final List<dynamic> _list = list
             .where((element) =>
-                element["Date"] ==
-                DateFormat('yyyy-MM-dd')
-                        .format((DateTime.now().subtract(Duration(days: 1)))) +
-                    'T00:00:00Z')
+                element["Date"] == getDate(0)??element["Date"] == getDate(1))
             .toList();
         _list.sort((a, b) => (b["Confirmed"]).compareTo(a["Confirmed"]));
         return _list;

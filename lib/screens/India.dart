@@ -46,6 +46,22 @@ class _IndiaState extends State<India>
         .getStates();
   }
 
+  showBottomSheet(states) {
+    return showModalBottomSheet(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        backgroundColor: Color(0xffFFF9EC),
+        isScrollControlled: true,
+        context: context,
+        builder: (context) {
+          return Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8),
+            child: Sheet(
+              user: states,
+            ),
+          );
+        });
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -123,75 +139,74 @@ class _IndiaState extends State<India>
                             return SingleChildScrollView(
                               scrollDirection: Axis.vertical,
                               child: DataTable(
+                                headingRowColor:
+                                    MaterialStateProperty.all(color.recovered),
+                                headingRowHeight: 65,
                                 decoration: BoxDecoration(
                                     border: Border.all(
                                         color: Colors.grey, width: 1),
-                                    borderRadius: BorderRadius.circular(10)),
-                                headingTextStyle:
-                                    TextStyle(fontWeight: FontWeight.w400),
-                                columnSpacing: 25,
+                                    borderRadius: BorderRadius.circular(4)),
+                                headingTextStyle: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black),
+                                columnSpacing:
+                                    MediaQuery.of(context).size.width * 0.08,
                                 dataRowHeight: 55,
                                 columns: [
                                   DataColumn(
-                                      label: Text('States',
-                                          textScaleFactor: 1.0,
-                                          style: TextStyle(
-                                              color: Colors.black45))),
+                                      label: Text(
+                                    'States',
+                                    textScaleFactor: 1.0,
+                                  )),
                                   DataColumn(
-                                      label: Text('Confirmed',
-                                          textScaleFactor: 1.0,
-                                          style:
-                                              TextStyle(color: Colors.amber))),
+                                      label: Text(
+                                    'Confirmed',
+                                    textScaleFactor: 1.0,
+                                  )),
                                   DataColumn(
-                                      label: Text('Deaths',
-                                          textScaleFactor: 1.0,
-                                          style: TextStyle(color: Colors.red))),
+                                      label: Text(
+                                    'Deaths',
+                                    textScaleFactor: 1.0,
+                                  )),
                                   DataColumn(
-                                      label: Text('Recovered',
-                                          textScaleFactor: 1.0,
-                                          style:
-                                              TextStyle(color: Colors.green))),
+                                      label: Text(
+                                    'Recovered',
+                                    textScaleFactor: 1.0,
+                                  )),
                                 ],
                                 rows: states.users
-                                    .map((data) => DataRow(cells: [
-                                          DataCell(
-                                              Text(
-                                                data.province,
-                                                textScaleFactor: 1.0,
-                                              ), onTap: () {
-                                            showModalBottomSheet(
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            30)),
-                                                backgroundColor:
-                                                    Color(0xffFFF9EC),
-                                                isScrollControlled: true,
-                                                context: context,
-                                                builder: (context) {
-                                                  return Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 8, right: 8),
-                                                    child: Sheet(
-                                                      user: data,
-                                                    ),
-                                                  );
-                                                });
-                                          }),
-                                          DataCell(Text(
-                                            data.confirmed.toString(),
-                                            textScaleFactor: 1.0,
-                                          )),
-                                          DataCell(Text(
-                                            data.deaths.toString(),
-                                            textScaleFactor: 1.0,
-                                          )),
-                                          DataCell(Text(
-                                            data.recovered.toString(),
-                                            textScaleFactor: 1.0,
-                                          )),
-                                        ]))
+                                    .map((data) => DataRow(
+                                            
+                                            cells: [
+                                              DataCell(
+                                                  Text(
+                                                    data.province,
+                                                    textScaleFactor: 1.0,
+                                                  ),
+                                                  onTap: () =>
+                                                      showBottomSheet(data)),
+                                              DataCell(
+                                                  Text(
+                                                    data.confirmed.toString(),
+                                                    textScaleFactor: 1.0,
+                                                  ),
+                                                  onTap: () =>
+                                                      showBottomSheet(data)),
+                                              DataCell(
+                                                  Text(
+                                                    data.deaths.toString(),
+                                                    textScaleFactor: 1.0,
+                                                  ),
+                                                  onTap: () =>
+                                                      showBottomSheet(data)),
+                                              DataCell(
+                                                  Text(
+                                                    data.recovered.toString(),
+                                                    textScaleFactor: 1.0,
+                                                  ),
+                                                  onTap: () =>
+                                                      showBottomSheet(data)),
+                                            ]))
                                     .toList(),
                               ),
                             );
