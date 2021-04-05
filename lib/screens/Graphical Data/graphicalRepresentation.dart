@@ -61,11 +61,10 @@ class _GraphicalDataState extends State<GraphicalData> {
               if (snapshot.hasData) {
                 return Container(
                   height: widget.height,
+                  width: MediaQuery.of(context).size.width,
                   child: SfCartesianChart(
-                    primaryXAxis: CategoryAxis(interval: 10),
+                    primaryXAxis: CategoryAxis(interval: 5),
                     primaryYAxis: NumericAxis(
-                        title: AxisTitle(text: 'cases'),
-                        anchorRangeToVisiblePoints: false,
                         isVisible: false),
                     tooltipBehavior: TooltipBehavior(
                       enable: true,

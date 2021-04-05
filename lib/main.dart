@@ -4,9 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:testdailyapp/Colors/colors.dart';
 import 'package:testdailyapp/app/repositories/data_repository.dart';
 import 'package:testdailyapp/app/services/api_services.dart';
-import 'package:testdailyapp/screens/Graphical%20Data/graphicalRepresentation.dart';
 import 'package:testdailyapp/screens/splash.dart';
-import 'package:testdailyapp/screens/Graphical%20Data/worldGraph.dart';
 import 'app/services/api.dart';
 
 

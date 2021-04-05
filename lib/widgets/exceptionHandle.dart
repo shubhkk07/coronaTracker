@@ -6,5 +6,5 @@ String exception = 'Something went wrong. Check your connection or restart the a
 Future<void> showException(
   BuildContext context,
 ) async {
-  return Toast.show(exception, context,duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+  return Toast.show(exception, context, gravity: Toast.BOTTOM);
 }

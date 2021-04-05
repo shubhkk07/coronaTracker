@@ -85,7 +85,7 @@ class APIService {
       if (list.isNotEmpty) {
         final List<dynamic> _list = list
             .where((element) =>
-                element["Date"] == getDate(0)??element["Date"] == getDate(1))
+                (element["Date"] == getDate(0))??(element["Date"] == getDate(1)))
             .toList();
         _list.sort((a, b) => (b["Confirmed"]).compareTo(a["Confirmed"]));
         return _list;
@@ -116,7 +116,7 @@ class APIService {
 //graphical data representation of all countries
   Future getDatainRange({String country}) async {
     final Response response = await http.get(api.graphEndpoints(
-        Endpoint.countries, getDate(35), getDate(1), country));
+        Endpoint.countries, getDate(28), getDate(0), country));
     if (response.statusCode == 200) {
       final List<Graph> list = (json.decode(response.body) as List)
           .map((item) => Graph.fromJsom(item))
@@ -127,10 +127,10 @@ class APIService {
     throw response;
   }
 
-// 'https://api.covid19api.com/world?from=2021-03-03T00:00:00Z&to=2021-04-04T00:00:00Z'
+// world Data
   Future getWorldGraph() async {
     final Response response = await http
-        .get(api.graphEndpoints(Endpoint.global, getDate(35), getDate(1), ''));
+        .get(api.graphEndpoints(Endpoint.global, getDate(35), getDate(0), ''));
     if (response.statusCode == 200) {
       final List<dynamic> list = json.decode(response.body);
       if (list.isNotEmpty) {

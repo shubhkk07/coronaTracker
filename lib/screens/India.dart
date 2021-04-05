@@ -101,7 +101,7 @@ class _IndiaState extends State<India>
                             Colors.green,
                             'Recovered',
                             stats['TotalRecovered'].toString(),
-                            '+' + stats['TotalConfirmed'].toString()),
+                            '+' + stats['NewRecovered'].toString()),
                         Box(
                             color.active,
                             Colors.blue,
@@ -130,6 +130,7 @@ class _IndiaState extends State<India>
                     Container(
                       padding: EdgeInsets.only(top: 20, bottom: 15),
                       height: MediaQuery.of(context).size.height * 0.62,
+                      width: MediaQuery.of(context).size.width,
                       child: FutureBuilder(
                         future: getIndiaStates(),
                         builder: (context, snapshot) {
@@ -175,38 +176,36 @@ class _IndiaState extends State<India>
                                   )),
                                 ],
                                 rows: states.users
-                                    .map((data) => DataRow(
-                                            
-                                            cells: [
-                                              DataCell(
-                                                  Text(
-                                                    data.province,
-                                                    textScaleFactor: 1.0,
-                                                  ),
-                                                  onTap: () =>
-                                                      showBottomSheet(data)),
-                                              DataCell(
-                                                  Text(
-                                                    data.confirmed.toString(),
-                                                    textScaleFactor: 1.0,
-                                                  ),
-                                                  onTap: () =>
-                                                      showBottomSheet(data)),
-                                              DataCell(
-                                                  Text(
-                                                    data.deaths.toString(),
-                                                    textScaleFactor: 1.0,
-                                                  ),
-                                                  onTap: () =>
-                                                      showBottomSheet(data)),
-                                              DataCell(
-                                                  Text(
-                                                    data.recovered.toString(),
-                                                    textScaleFactor: 1.0,
-                                                  ),
-                                                  onTap: () =>
-                                                      showBottomSheet(data)),
-                                            ]))
+                                    .map((data) => DataRow(cells: [
+                                          DataCell(
+                                              Text(
+                                                data.province,
+                                                textScaleFactor: 1.0,
+                                              ),
+                                              onTap: () =>
+                                                  showBottomSheet(data)),
+                                          DataCell(
+                                              Text(
+                                                data.confirmed.toString(),
+                                                textScaleFactor: 1.0,
+                                              ),
+                                              onTap: () =>
+                                                  showBottomSheet(data)),
+                                          DataCell(
+                                              Text(
+                                                data.deaths.toString(),
+                                                textScaleFactor: 1.0,
+                                              ),
+                                              onTap: () =>
+                                                  showBottomSheet(data)),
+                                          DataCell(
+                                              Text(
+                                                data.recovered.toString(),
+                                                textScaleFactor: 1.0,
+                                              ),
+                                              onTap: () =>
+                                                  showBottomSheet(data)),
+                                        ]))
                                     .toList(),
                               ),
                             );
