@@ -99,7 +99,7 @@ class _WorldGraphState extends State<WorldGraph> {
                 );
               } else {
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: Text('Loading...'),
                 );
               }
             }),

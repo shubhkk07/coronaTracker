@@ -20,72 +20,73 @@ class _SheetState extends State<Sheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.82,
-      child: Center(
-        child: Container(
-          child: Column(
-            children: [
-              Padding(
+      height: MediaQuery.of(context).size.height * 0.7,
+      child: SingleChildScrollView(
+        child: Column(
+         
+          children: [
+            Center(
+              child: Padding(
                 padding: EdgeInsets.only(top: 10, bottom: 15),
                 child: Text(data != null ? data.country : user.province,
                     style: TextStyle(fontSize: 18)),
               ),
-              Row(
-                children: [
-                  Box(
-                      color.confirmed,
-                      Colors.amber,
-                      'Confirmed',
-                      (data != null ? data.confirmed : user.confirmed)
-                          .toString(),
-                      ((data != null ? ('+' + '${data.newConfirmed}') : '')
-                          .toString())),
-                  Box(
-                      color.deaths,
-                      Colors.red,
-                      'Deaths',
-                      (data != null ? data.deaths : user.deaths).toString(),
-                      ((data != null ? ('+' + '${data.newDeaths}') : '')
-                          .toString()))
-                ],
+            ),
+            Row(
+              children: [
+                Box(
+                    color.confirmed,
+                    Colors.amber,
+                    'Confirmed',
+                    (data != null ? data.confirmed : user.confirmed)
+                        .toString(),
+                    ((data != null ? ('+' + '${data.newConfirmed}') : '')
+                        .toString())),
+                Box(
+                    color.deaths,
+                    Colors.red,
+                    'Deaths',
+                    (data != null ? data.deaths : user.deaths).toString(),
+                    ((data != null ? ('+' + '${data.newDeaths}') : '')
+                        .toString()))
+              ],
+            ),
+            Row(
+              children: [
+                Box(
+                    color.recovered,
+                    Colors.green,
+                    'Recovered',
+                    (data != null
+                            ? (data.recovered != 0 ? data.recovered : '-')
+                            : user.recovered)
+                        .toString(),
+                    ((data != null
+                            ? (data.newRecovered != 0
+                                ? ('+' + '${data.newConfirmed}')
+                                : '')
+                            : '')
+                        .toString())),
+                Box(
+                    color.active,
+                    Colors.blue,
+                    'Active',
+                    (data != null
+                            ? data.confirmed - data.deaths - data.recovered
+                            : user.confirmed - user.deaths - user.recovered)
+                        .toString(),
+                    '')
+              ],
+            ),
+            Container(
+              padding: EdgeInsets.only(top:20),
+              child: GraphicalData(
+                height: MediaQuery.of(context).size.height*0.34,
+                myCountry: data != null ? (data.country) : null,
+                myProvince: user != null ? user.province : null,
               ),
-              Row(
-                children: [
-                  Box(
-                      color.recovered,
-                      Colors.green,
-                      'Recovered',
-                      (data != null
-                              ? (data.recovered != 0 ? data.recovered : '-')
-                              : user.recovered)
-                          .toString(),
-                      ((data != null
-                              ? (data.newRecovered != 0
-                                  ? ('+' + '${data.newConfirmed}')
-                                  : '')
-                              : '')
-                          .toString())),
-                  Box(
-                      color.active,
-                      Colors.blue,
-                      'Active',
-                      (data != null
-                              ? data.confirmed - data.deaths - data.recovered
-                              : user.confirmed - user.deaths - user.recovered)
-                          .toString(),
-                      '')
-                ],
-              ),
-              Container(
-                padding: EdgeInsets.only(top:20),
-                child: GraphicalData(
-                  height: MediaQuery.of(context).size.height*0.35,
-                  myCountry: data != null ? (data.country) : null,
-                  myProvince: user != null ? user.province : null,
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

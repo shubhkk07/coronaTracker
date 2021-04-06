@@ -139,7 +139,14 @@ class _IndiaState extends State<India>
                                 IndiaStats.fromJson(snapshot.data);
                             return SingleChildScrollView(
                               scrollDirection: Axis.vertical,
+                              child: MediaQuery(
+                                data: MediaQuery.of(context)
+                                    .copyWith(textScaleFactor: 1.0),
                               child: DataTable(
+                                dataTextStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 13,
+                                ),
                                 headingRowColor:
                                     MaterialStateProperty.all(color.recovered),
                                 headingRowHeight: 65,
@@ -149,30 +156,32 @@ class _IndiaState extends State<India>
                                     borderRadius: BorderRadius.circular(4)),
                                 headingTextStyle: TextStyle(
                                     fontWeight: FontWeight.w400,
-                                    color: Colors.black),
+                                    color: Colors.black,
+                                    fontSize: 13.5
+                                    ),
                                 columnSpacing:
-                                    MediaQuery.of(context).size.width * 0.08,
+                                    MediaQuery.of(context).size.width * 0.045,
                                 dataRowHeight: 55,
                                 columns: [
                                   DataColumn(
                                       label: Text(
                                     'States',
-                                    textScaleFactor: 1.0,
+                                   
                                   )),
                                   DataColumn(
                                       label: Text(
                                     'Confirmed',
-                                    textScaleFactor: 1.0,
+                                   
                                   )),
                                   DataColumn(
                                       label: Text(
                                     'Deaths',
-                                    textScaleFactor: 1.0,
+                                   
                                   )),
                                   DataColumn(
                                       label: Text(
                                     'Recovered',
-                                    textScaleFactor: 1.0,
+                                   
                                   )),
                                 ],
                                 rows: states.users
@@ -180,35 +189,35 @@ class _IndiaState extends State<India>
                                           DataCell(
                                               Text(
                                                 data.province,
-                                                textScaleFactor: 1.0,
+                                               
                                               ),
                                               onTap: () =>
                                                   showBottomSheet(data)),
                                           DataCell(
                                               Text(
                                                 data.confirmed.toString(),
-                                                textScaleFactor: 1.0,
+                                                
                                               ),
                                               onTap: () =>
                                                   showBottomSheet(data)),
                                           DataCell(
                                               Text(
                                                 data.deaths.toString(),
-                                                textScaleFactor: 1.0,
+                                                
                                               ),
                                               onTap: () =>
                                                   showBottomSheet(data)),
                                           DataCell(
                                               Text(
                                                 data.recovered.toString(),
-                                                textScaleFactor: 1.0,
+                                               
                                               ),
                                               onTap: () =>
                                                   showBottomSheet(data)),
                                         ]))
                                     .toList(),
                               ),
-                            );
+                            ));
                           }
                           return Center(child: CircularProgressIndicator());
                         },
